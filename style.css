@@ -4,10 +4,10 @@ body{
 
 .square{
   width: 30%;
-  background-color: blueviolet;
   padding-bottom: 30%;
   float: left;
   margin: 1.66%;
+  border-radius: 30%;
 }
 
 #container{
