@@ -51,7 +51,7 @@ function startGame() {
   document.getElementById("message").innerHTML='All The Best <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
   fillRandomColorArray();
   assignColorAndEventListenerToSquares();
-  answer = colorBoxes[Math.ceil(Math.random() * randomColors.length)].style.backgroundColor;
+  answer = colorBoxes[Math.ceil(Math.random() *5)].style.backgroundColor;
   headerRgbDisplay.innerHTML = answer;
 }
 
