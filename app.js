@@ -3,7 +3,16 @@ var randomColors = [];
 var colorBoxes = document.getElementsByClassName("square");
 var answer = null;
 var headerRgbDisplay = document.getElementById("colorId");
-document.getElementById("newGame").addEventListener("click",startGame);
+document.getElementById("newGame").addEventListener("click",function(){startGame()});
+var currentDifficulty=3;
+
+function changeDifficulty(newDifficulty){
+  currentDifficulty=newDifficulty;
+  for(var i=0;i<6;i++){
+    colorBoxes[i].style.visibility = "hidden";
+  }
+  startGame();
+}
 
 //function declerations
 function colorValueGenerator() {
@@ -16,14 +25,22 @@ function randomColorGenerator() {
 
 function fillRandomColorArray() {
   randomColors=[];
-  for (let i = 0; i < colorBoxes.length; i++) {
+  for (let i = 0; i < currentDifficulty; i++) {
     randomColors.push(randomColorGenerator());
   }
 }
 
+document.getElementById("easy").addEventListener("click",function(){
+  changeDifficulty(3)
+});
+
+document.getElementById("hard").addEventListener("click",function(){
+  changeDifficulty(6);
+});
+
 function onSuccess() {
   document.getElementById("message").innerHTML='Congratulation!!! <i class="fa fa-smile-o fa-lg" aria-hidden="true"></i>';
-  for (let i = 0; i < colorBoxes.length; i++) {
+  for (let i = 0; i < currentDifficulty; i++) {
     colorBoxes[i].style.backgroundColor = answer;
     colorBoxes[i].style.visibility = "visible";
   }
@@ -39,8 +56,8 @@ function validateUserClick() {
   else
     onFaliure(this);
 }
-function assignColorAndEventListenerToSquares() {
-  for (let i = 0; i < colorBoxes.length; i++) {
+function assignColorAndEventListenerToSquares(difficulty) {
+  for (let i = 0; i < difficulty; i++) {
     colorBoxes[i].style.backgroundColor = randomColors[i];
     colorBoxes[i].style.visibility = "visible";
     colorBoxes[i].addEventListener("click", validateUserClick);
@@ -49,11 +66,11 @@ function assignColorAndEventListenerToSquares() {
 
 function startGame() {
   document.getElementById("message").innerHTML='All The Best <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
-  fillRandomColorArray();
-  assignColorAndEventListenerToSquares();
-  answer = colorBoxes[Math.ceil(Math.random() *5)].style.backgroundColor;
+  fillRandomColorArray(currentDifficulty);
+  assignColorAndEventListenerToSquares(currentDifficulty);
+  answer = colorBoxes[Math.ceil(Math.random()*(currentDifficulty-1))].style.backgroundColor;
   headerRgbDisplay.innerHTML = answer;
 }
 
 //function calling
-startGame(this);
+startGame();
